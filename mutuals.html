@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>You Matter</title>
+    <link href="https://fonts.googleapis.com/css2?family=Helvetica:wght@400;700&family=Playfair+Display:wght@400;700&family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Helvetica', sans-serif;
+            background: linear-gradient(135deg, #E0F7FA, #F3E5F5); /* Light blue to soft lavender gradient */
+            color: #333;
+            text-align: center;
+            padding: 20px;
+            margin: 0;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            color: #FF6F61; /* Muted coral color */
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #ffffff; /* White background for content */
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            position: relative;
+        }
+
+        #ipod-widget {
+            background-color: #f5f5f5; /* Light color for the widget */
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .special-text {
+            font-family: 'Quicksand', sans-serif;
+            color: #9EBC9F; /* Sage green color */
+            font-size: 1.2em;
+        }
+
+        .answer {
+            display: inline-block;
+            margin: 10px;
+        }
+
+        .answer input[type="radio"] {
+            display: none;
+        }
+
+        .answer label {
+            display: inline-block;
+            padding: 10px 20px;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            cursor: pointer;
+            background-color: #e0e0e0;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .answer input[type="radio"]:checked + label {
+            background-color: #b0b0b0;
+            transform: scale(1.05);
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            background-color: #FF6F61; /* Muted coral color */
+            color: white;
+            font-family: 'Quicksand', sans-serif;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #FF3B2F; /* Darker coral color */
+        }
+
+        #envelope, #message {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #ffffff;
+            max-width: 600px;
+            margin: 20px auto;
+        }
+
+        #envelope {
+            cursor: pointer;
+            font-size: 1.5em;
+        }
+
+        #message {
+            font-size: 1.2em;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .special-text {
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>You Matter.</h1>
+        <p>Hello, mutuals! I’ve created a practice HTML website, and I’d love for you to participate by answering the questions below. These questions aren’t about ‘‘private matter’’ but are meant to help assess how you’re doing, what your current state is, and how you’re feeling. I hope this experience feels therapeutic for you, as it has been for me in creating it. Thank you for being a part of this journey!</p>
+        
+        <div id="ipod-widget">
+            <p>Before we continue, I kindly ask that you answer these questions.</p>
+        </div>
+        
+        <div id="questions">
+            <div id="name-question">
+                <p>What is your name?</p>
+                <input type="text" id="name-input" placeholder="Enter your name">
+                <button onclick="startQuestions()">Submit</button>
+            </div>
+
+            <!-- Questions will be displayed here -->
+        </div>
+        
+        <div id="envelope">📩 Open this</div>
+        <div id="message"></div>
+    </div>
+
+    <script>
+        let currentQuestion = 0;
+        const questions = [
+            "Are you feeling more like yourself or finding comfort in these days?",
+            "Are you stuck in a mental slump, struggling to find motivation?",
+            "Do you feel supported by those around you, or do you need someone to talk to?",
+            "Is there anything weighing on your mind that you’d like to share?",
+            "Are you feeling more happy or sad these days?"
+        ];
+
+        function startQuestions() {
+            document.getElementById('name-question').style.display = 'none';
+            displayQuestion();
+        }
+
+        function displayQuestion() {
+            if (currentQuestion < questions.length) {
+                const question = questions[currentQuestion];
+                const questionContainer = document.createElement('div');
+                questionContainer.className = 'question';
+                questionContainer.innerHTML = `
+                    <p>${question}</p>
+                    <div class="answer">
+                        <input type="radio" id="yes" name="answer" value="Yes">
+                        <label for="yes">Yes</label>
+                    </div>
+                    <div class="answer">
+                        <input type="radio" id="no" name="answer" value="No">
+                        <label for="no">No</label>
+                    </div>
+                    <button onclick="nextQuestion()">Next</button>
+                `;
+                document.getElementById('questions').appendChild(questionContainer);
+            } else {
+                handleFinalQuestion();
+            }
+        }
+
+        function nextQuestion() {
+            const selectedOption = document.querySelector('input[name="answer"]:checked');
+            if (selectedOption) {
+                document.querySelector('.question').remove();
+                currentQuestion++;
+                setTimeout(displayQuestion, 500); // Adding delay for the last question
+            } else {
+                alert('Please select an option');
+            }
+        }
+
+        function handleFinalQuestion() {
+            document.querySelector('.question').remove();
+            const finalQuestionContainer = document.createElement('div');
+            finalQuestionContainer.className = 'question';
+            finalQuestionContainer.innerHTML = `
+                <p>${questions[currentQuestion]}</p>
+                <div class="answer">
+                    <input type="radio" id="happy" name="final-answer" value="Happy">
+                    <label for="happy">Happy</label>
+                </div>
+                <div class="answer">
+                    <input type="radio" id="sad" name="final-answer" value="Sad">
+                    <label for="sad">Sad</label>
+                </div>
+                <button onclick="showFinalMessage()">Submit</button>
+            `;
+            document.getElementById('questions').appendChild(finalQuestionContainer);
+        }
+
+        function showFinalMessage() {
+            const selectedOption = document.querySelector('input[name="final-answer"]:checked');
+            if (selectedOption) {
+                const answer = selectedOption.value;
+                document.getElementById('envelope').style.display = 'block';
+                if (answer === 'Sad') {
+                    document.getElementById('message').innerHTML = `
+                        I want you to know how much your journey means, not just to me, but to yourself. Every step you’ve taken, every challenge you’ve faced, you’ve done so with a strength and resilience that inspires me every day. To see you now, embracing who you are, nurturing your spirit, and finding your own way through the complexities of life—it's a testament to your incredible growth.
+                        <br><br>
+                        You are more than your struggles; you are the light that shines through even the darkest moments. It’s okay to stumble, to have days when things feel heavy—because in those moments, you’re still moving forward, still choosing to rise. Your feelings are your truth, and they are as important as any victory or achievement. They make you human; they make you beautifully, authentically you.
+                        <br><br>
+                        You’ve given yourself the chance to heal, to love, and to truly live. It’s in these moments of self-kindness that you reveal the deepest courage. You are deserving of every ounce of love, peace, and happiness that comes your way, and I am endlessly proud of the person you are becoming. Keep believing in yourself, because I believe in you with all my heart. Smile ka na : )
+                    `;
+                } else if

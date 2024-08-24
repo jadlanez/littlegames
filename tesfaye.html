@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello, mutuals.</title>
+    <style>
+        body {
+            background-color: white;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .computer {
+            text-align: center;
+            background-color: black;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5);
+        }
+        .computer .screen {
+            background-color: white;
+            color: black;
+            padding: 10px;
+            margin-bottom: 15px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        .computer input[type="text"] {
+            width: 200px;
+            padding: 5px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 14px;
+        }
+        .computer input[type="submit"] {
+            padding: 5px 10px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 14px;
+            cursor: pointer;
+            background-color: black;
+            color: white;
+            border: 2px solid white;
+        }
+        .computer .result {
+            margin-top: 10px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="computer">
+        <div class="screen">
+            ██████████████████████<br>
+            ██                  ██<br>
+            ██                  ██<br>
+            ██                  ██<br>
+            ██                  ██<br>
+            ██████████████████████<br>
+        </div>
+        <div>
+            <p>What is your zodiac sign?</p>
+            <form id="zodiacForm">
+                <input type="text" id="zodiacInput" placeholder="Type your sign" required>
+                <input type="submit" value="Submit">
+            </form>
+            <div class="result" id="result"></div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("zodiacForm").addEventListener("submit", function(event) {
+            event.preventDefault();  // Prevent the form from refreshing the page
+            document.getElementById("result").innerText = "Ako nalang kasi.";
+        });
+    </script>
+</body>
+</html>
